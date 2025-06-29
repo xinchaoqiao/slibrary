@@ -3,6 +3,7 @@ module.exports = {
         proxy: {
             '/api': {
                 target: 'http://localhost:8080', // 后端地址
+                // target:'http://39.96.167.208:8080',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api': '' // 移除路径中的 /api

@@ -22,79 +22,81 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping("/api")
 public class BookController {
 
     private final BookService bookService;
     private static final Logger logger = LoggerFactory.getLogger(BookController.class);
+
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
 
+
     // 获取所有图书
-    @GetMapping
+    @GetMapping("/books")
     public ResponseEntity<List<Book>> getAllBooks() {
         return ResponseEntity.ok(bookService.getAllBooks());
     }
 
     // 获取单个图书
-    @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookByid(@PathVariable Long id) {// 把路径抓出来用
+    @GetMapping("/books/{id}")
+    public ResponseEntity<Book> getBookById(@PathVariable Long id) {// 把路径抓出来用
         return ResponseEntity.ok(bookService.getBookById(id));
     }
 
     // 添加新书
-    @PostMapping
+    @PostMapping("/books")
     public ResponseEntity<Book> addBook(@RequestBody Book book) {
         return new ResponseEntity<>(bookService.addBook(book), HttpStatus.CREATED);
     }
 
     // 更新图书
-    @PutMapping("/{id}") // @RequestBody 处理Post和Put请求 前端传 JSON 数据，后端用 @RequestBody 直接映射到实体类
+    @PutMapping("/books/{id}") // @RequestBody 处理Post和Put请求 前端传 JSON 数据，后端用 @RequestBody 直接映射到实体类
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book bookDetails) {
 
         return ResponseEntity.ok(bookService.updateBook(id, bookDetails));
     }
 
     // 删除图书
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/books/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
     }
 
     // 搜索图书
-    @GetMapping("/search")
+    @GetMapping("/books/search")
     public ResponseEntity<List<Book>> searchBooks(@RequestParam String keyword) {
         return ResponseEntity.ok(bookService.searchBooks(keyword));
     }
 
     // 按分类获取图书
-    @GetMapping("/genre/{genre}")
+    @GetMapping("/books/genre/{genre}")
     public ResponseEntity<List<Book>> getBooksByGenre(@PathVariable Genre genre) {
         return ResponseEntity.ok(bookService.getBooksByGenre(genre));
     }
 
     // 借阅图书
-    @PostMapping("/{id}/borrow")
+    @PostMapping("/books/{id}/borrow")
     public ResponseEntity<Book> borrowBook(@PathVariable Long id) {
         return ResponseEntity.ok(bookService.borrowBook(id));
     }
 
     // 归还图书
-    @PostMapping("/{id}/return")
+    @PostMapping("/books/{id}/return")
     public ResponseEntity<Book> returnBook(@PathVariable Long id) {
         return ResponseEntity.ok(bookService.returnBook(id));
     }
 
     // 获取可借阅图书
-    @GetMapping("/available")
+    @GetMapping("/books/available")
     public ResponseEntity<List<Book>> getAvailableBooks() {
         logger.info("获取可借阅图书请求");
-        try{
+        try {
             List<Book> availableBooks = bookService.getAvailableBooks();
             return ResponseEntity.ok(availableBooks);
-        }catch(Exception e){
+        } catch (Exception e) {
             logger.error("获取可借阅图书出错", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
