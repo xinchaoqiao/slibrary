@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.summer_two.back.Service.BookServiceImpl;
+import com.summer_two.back.Service.Impl.BookServiceImpl;
 
 @ControllerAdvice
 public class GoubalExceptionHandler {
