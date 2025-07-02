@@ -5,9 +5,9 @@ module.exports = {
                 target: 'http://localhost:8080', // 后端地址
                 // target:'http://39.96.167.208:8080',
                 changeOrigin: true,
-                pathRewrite: {
-                    '^/api': '' // 移除路径中的 /api
-                }
+                // pathRewrite: {
+                //     '^/api': '' // 移除路径中的 /api
+                // }
             }
         },
         // 允许的主机头，设置为 '0.0.0.0' 表示允许所有主机

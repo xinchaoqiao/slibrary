@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // 创建带错误处理的axios实例
 const apiClient = axios.create({
-    // baseURL: 'http://39.96.167.208:8080', // 修改为完整后端地址
+    // baseURL: 'http://39.96.167.208:8080', // 完整后端地址
     baseURL:'/api',
     timeout: 8000,
     headers: {
